@@ -26,6 +26,7 @@ class CreateBudgetsTable extends Migration
                 ->on('salesmen')
                 ->onDelete('cascade');
             $table->text('description');
+            $table->dateTime('budget_date');
             $table->float('price');
             $table->softDeletes();
             $table->timestamps();

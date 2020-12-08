@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BudgetRequest;
-use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\{Budget, Customer, Salesman};
+
 
 class BudgetController extends Controller
 {
@@ -20,7 +21,7 @@ class BudgetController extends Controller
     }
     public function index()
     {
-        $budgets = $this->budget->all();
+        $budgets = $this->budget->latest()->get();
         $customers = $this->customer->all();
         $salesmen = $this->salesman->all();
 
@@ -45,17 +46,18 @@ class BudgetController extends Controller
 
     public function store(BudgetRequest $request)
     {
+        $this->budget->create($request->validated());
 
-        $this->budget->create($this->validated());
-
+        Alert::toast('Orçamento cadastrado com sucesso', 'success');
         return redirect()->route('budget.index');
     }
 
     public function update(BudgetRequest $request)
     {
 
-        $this->budget->update($this->validated());
+        $this->budget->update($request->validated());
 
+        Alert::toast('Orçamento editado com sucesso', 'success');
         return redirect()->route('budget.index');
     }
 
@@ -63,6 +65,7 @@ class BudgetController extends Controller
     {
         $budget->delete();
 
+        Alert::toast('Orçamento deletado com sucesso', 'success');
         return redirect()->route('budget.index');
     }
 }

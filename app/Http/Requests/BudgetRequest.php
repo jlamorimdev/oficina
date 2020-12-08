@@ -28,6 +28,7 @@ class BudgetRequest extends FormRequest
             'salesman_id' => 'required|exists:salesmen,id',
             'description' => 'required|max:155',
             'price' => 'required|numeric',
+            'budget_date' => 'required',
         ];
     }
 

@@ -13,6 +13,7 @@ class Budget extends Model
         'customer_id',
         'salesman_id',
         'description',
+        'budget_date',
         'price'
     ];
 
