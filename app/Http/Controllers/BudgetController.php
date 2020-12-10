@@ -23,6 +23,14 @@ class BudgetController extends Controller
     {
         $budgets = $this->budget->latest();
 
+        if ($request->filled('start')) {
+            $budgets->whereDate('budget_date', '>=', $request->query('start'));
+        }
+
+        if ($request->filled('end')) {
+            $budgets->whereDate('budget_date', '<=', $request->query('end'));
+        }
+
         $budgets->where(function ($query) use ($request) {
 
             $search = $request->query('search');
