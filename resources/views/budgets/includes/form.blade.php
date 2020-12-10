@@ -52,7 +52,7 @@
             <small class="text-danger">*</small>
             Valor do orçamento:
         </label>
-        <input type="datetime-local" name="budget_date" class="form-control col-md-2" placeholder="R$ 00.00" value="{{ (old('budget_date') ? old('budget_date') : (!empty($budget) ? $budget->budget_date->format('Y-m-d\\TH:i') : now()->format('Y-m-d\\TH:i'))) }}">
+        <input type="datetime-local" name="budget_date" class="form-control col-md-2" value="{{ (old('budget_date') ? old('budget_date') : (!empty($budget) ? $budget->budget_date->format('Y-m-d\\TH:i') : now()->format('Y-m-d\\TH:i'))) }}">
         @if($errors->has('budget_date'))
             <div class="text-danger">
                 {{ $errors->first('budget_date') }}
@@ -83,16 +83,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Confirma que deseja deletar esse Orçamento?</h4>
+                    <h4 class="modal-title" id="myModalLabel">Deseja deletar esse Orçamento?</h4>
                 </div>
                 <div class="modal-footer">
-                    <form method="POST" class="form-inline pull-left" action="{{ route('budget.delete', $budget) }}">
+                    <form method="POST" class="form-inline" action="{{ route('budget.delete', $budget) }}">
                         @csrf
                         @method('delete')
                         <button class="btn btn-success btn-flat"><i class="fa fa-check"></i> Sim</button>
                     </form>
-                    <button type="button" class="btn btn-danger btn-flat pull-right" data-dismiss="modal"><i class="fa fa-times"></i> Não</button>
+                    <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal"><i class="fa fa-times"></i> Não</button>
                 </div>
             </div>
         </div>

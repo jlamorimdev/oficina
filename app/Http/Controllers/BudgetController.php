@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BudgetRequest;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\{Budget, Customer, Salesman};
-
+use Illuminate\Http\Request;
 
 class BudgetController extends Controller
 {
@@ -19,17 +19,36 @@ class BudgetController extends Controller
         $this->customer = $customer;
         $this->salesman = $salesman;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $budgets = $this->budget->latest()->get();
+        $budgets = $this->budget->latest();
+
+        $budgets->where(function ($query) use ($request) {
+
+            $search = $request->query('search');
+
+            if (request()->get('customer')) {
+                $query->orWhereHas('customer', function ($query) use ($search) {
+                    return $query->where('name', 'LIKE', '%' . $search . '%');
+                });
+            }
+
+            if (request()->get('salesman')) {
+                $query->orWhereHas('salesman', function ($query) use ($search) {
+                    return $query->where('name', 'LIKE', '%' . $search . '%');
+                });
+            }
+        });
+
         $customers = $this->customer->all();
+        $budgets = $budgets->get();
         $salesmen = $this->salesman->all();
 
         return view('budgets.view', compact('budgets', 'customers', 'salesmen'));
     }
 
     public function create()
-    {   
+    {
         $customers = $this->customer->all();
         $salesmen = $this->salesman->all();
 
@@ -37,7 +56,7 @@ class BudgetController extends Controller
     }
 
     public function edit(Budget $budget)
-    {   
+    {
         $customers = $this->customer->all();
         $salesmen = $this->salesman->all();
 

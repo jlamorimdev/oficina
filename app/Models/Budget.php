@@ -17,6 +17,8 @@ class Budget extends Model
         'price'
     ];
 
+    protected $dates = ['budget_date'];
+
     public function salesman(): BelongsTo
     {
         return $this->belongsTo(Salesman::class);

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\{Customer, Salesman};
+use App\Models\{Customer, Salesman, User};
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,5 +14,11 @@ class DatabaseSeeder extends Seeder
     {
         factory(Salesman::class, 3)->create();
         factory(Customer::class, 10)->create();
+
+        User::firstOrCreate([
+            'name' =>'Admin',
+            'email' =>'admin@email.com',
+            'password' => bcrypt('12345678')
+        ]);
     }
 }

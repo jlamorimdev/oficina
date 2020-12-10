@@ -16,10 +16,10 @@
         <label class="text-muted pt-3" style="font-size: 15px;">Filtrar por:</label>
         <div>
             <label class="mr-3">
-                <input type="checkbox" name="title" {{ (empty($query) ||  !empty($query['title'])) ? 'checked' : null }}> Cliente
+                <input type="checkbox" name="customer" {{ (empty($query) ||  !empty($query['title'])) ? 'checked' : null }}> Cliente
             </label>
             <label class="mr-3">
-                <input type="checkbox" name="description" {{ (empty($query) ||  !empty($query['description'])) ? 'checked' : null }}> Vendedor
+                <input type="checkbox" name="salesman" {{ (empty($query) ||  !empty($query['description'])) ? 'checked' : null }}> Vendedor
             </label>
         </div>
     </div>
@@ -53,7 +53,7 @@
         <tr>
             <td>{{ $budget->id}}</td>
             <td>{{ $budget->customer->name }}</td>
-            <td>{{ $budget->created_at->format('d/m/Y H:i') }}</td>
+            <td>{{ $budget->budget_date->format('d/m/Y H:i') }}</td>
             <td>{{ $budget->salesman->name }}</td>
             <td>R$ {{ $budget->price }}</td>
             <td>
